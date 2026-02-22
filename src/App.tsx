@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import './App.css'
 import BeanIcon from './components/BeanIcon'
-import LoveNote from './components/LoveNote'
+import VoiceMessages from './components/VoiceMessages'
 import Compliment from './components/Compliment'
 import Memory from './components/Memory'
 import Countdown from './components/Countdown'
 
-type Page = 'home' | 'love-note' | 'compliment' | 'memory' | 'countdown'
+type Page = 'home' | 'voice' | 'compliment' | 'memory' | 'countdown'
 
 function App() {
   const [page, setPage] = useState<Page>('home')
@@ -45,14 +45,15 @@ function App() {
       </header>
 
       <div className="grid">
-        <div className="card" onClick={() => setPage('love-note')}>
+        <div className="card" onClick={() => setPage('voice')}>
           <span className="card-icon">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <path d="M16 28S4 20 4 12a6.5 6.5 0 0 1 12-3.5A6.5 6.5 0 0 1 28 12c0 8-12 16-12 16z" fill="#C17D4F" opacity="0.85"/>
-              <path d="M16 28S4 20 4 12a6.5 6.5 0 0 1 12-3.5A6.5 6.5 0 0 1 28 12c0 8-12 16-12 16z" stroke="#D4956B" strokeWidth="1.5" fill="none"/>
+              <rect x="10" y="4" width="12" height="20" rx="6" fill="#C17D4F" opacity="0.25" stroke="#D4956B" strokeWidth="1.5"/>
+              <path d="M8 18a8 8 0 0 0 16 0" stroke="#D4956B" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+              <path d="M16 26v3M12 29h8" stroke="#D4956B" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </span>
-          <span className="card-label">Love Notes</span>
+          <span className="card-label">Voice Messages</span>
         </div>
         <div className="card" onClick={() => setPage('compliment')}>
           <span className="card-icon">
@@ -91,8 +92,8 @@ function App() {
 
 function PageContent({ page }: { page: Exclude<Page, 'home'> }) {
   switch (page) {
-    case 'love-note':
-      return <LoveNote />
+    case 'voice':
+      return <VoiceMessages />
     case 'compliment':
       return <Compliment />
     case 'memory':

@@ -1,4 +1,27 @@
-{
-  "date": "2026-03-14",
-  "label": "Our Next Date"
-}
+[
+	{
+		"date": "2026-02-28",
+		"title": "February 28",
+		"description": "Your unofficial birthday that you consider your birthday."
+	},
+	{
+		"date": "2028-02-29",
+		"title": "February 29",
+		"description": "Congratulations on having an actual birthday this year!"
+	},
+	{
+		"date": "2026-03-01",
+		"title": "March 1",
+		"description": "The day you were actually born on years that don't have the day you actually born on."
+	},
+	{
+		"date": "2026-05-25",
+		"title": "May 25",
+		"description": "Dae's fake birthday."
+	},
+	{
+		"date": "2026-07-23",
+		"title": "July 23",
+		"description": "Your fake birthday."
+	}
+]

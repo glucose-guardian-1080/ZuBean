@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Media files hosted on Cloudflare R2
+public/memories/
+public/voice/
