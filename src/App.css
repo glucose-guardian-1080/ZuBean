@@ -1,3 +1,74 @@
+/* Splash screen */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-deep-alt) 100%);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.splash-icon {
+  animation: splashPop 600ms ease both;
+}
+
+.splash-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  margin-top: 1rem;
+  animation: splashFadeIn 500ms ease both 200ms;
+}
+
+.splash-greeting {
+  color: var(--mint);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  animation: splashFadeIn 500ms ease both 400ms;
+}
+
+.splash-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: splashFadeIn 500ms ease both 700ms;
+}
+
+@keyframes splashPop {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes splashFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.splash-fade-out {
+  animation: splashOut 400ms ease both;
+  pointer-events: none;
+}
+
+@keyframes splashOut {
+  to { opacity: 0; }
+}
+
 /* Page transition wrapper */
 .page-wrapper {
   position: relative;
@@ -37,13 +108,6 @@
   color: var(--amber);
 }
 
-.header p {
-  color: var(--muted);
-  font-size: 0.75rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-top: 0.35rem;
-}
 
 .grid {
   display: grid;
@@ -164,30 +228,22 @@ input::placeholder {
   animation: slideOut 300ms ease both;
 }
 
-/* Card shuffle animation — deck deal style */
+/* Card shuffle animation */
 @keyframes cardShuffle {
   0% {
-    transform: translateX(0) rotate(0deg);
+    transform: translateX(0) rotate(0deg) scale(1);
     opacity: 1;
   }
-  30% {
-    transform: translateX(85%) rotate(10deg);
-    opacity: 0.5;
-  }
-  45% {
-    transform: translateX(100%) rotate(12deg);
+  40% {
+    transform: translateX(60%) rotate(4deg) scale(0.95);
     opacity: 0;
   }
-  55% {
-    transform: translateX(-100%) rotate(-12deg);
+  50% {
+    transform: translateX(0%) rotate(0deg) scale(0.95);
     opacity: 0;
-  }
-  70% {
-    transform: translateX(-85%) rotate(-10deg);
-    opacity: 0.5;
   }
   100% {
-    transform: translateX(0) rotate(0deg);
+    transform: translateX(0) rotate(0deg) scale(1);
     opacity: 1;
   }
 }

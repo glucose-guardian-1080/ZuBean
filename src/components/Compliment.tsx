@@ -293,8 +293,8 @@ const Compliment = forwardRef<ComplimentHandle>(function Compliment(_, ref) {
 			>
 				<p
 					style={{
-						fontSize: '0.8rem',
-						color: 'var(--muted)',
+						fontSize: '0.85rem',
+						color: 'var(--mint)',
 						marginBottom: '1.5rem',
 						textTransform: 'uppercase',
 						letterSpacing: '2px',
@@ -308,7 +308,7 @@ const Compliment = forwardRef<ComplimentHandle>(function Compliment(_, ref) {
 						perspective: '1000px',
 						cursor: shuffling ? 'default' : 'pointer',
 						animation: shuffling
-							? 'cardShuffle 0.7s ease both'
+							? 'cardShuffle 0.8s cubic-bezier(0.4, 0, 0.2, 1) both'
 							: 'none',
 					}}
 					onClick={() => {
@@ -397,13 +397,13 @@ const Compliment = forwardRef<ComplimentHandle>(function Compliment(_, ref) {
 					onClick={anotherOne}
 					style={{
 						marginTop: '1.5rem',
-						background:
-							'linear-gradient(135deg, var(--amber), var(--golden))',
-						color: '#fff',
-						border: 'none',
+						background: 'var(--bg-card)',
+						color: 'var(--mint)',
+						border: '1px solid rgba(168, 220, 217, 0.15)',
 						borderRadius: '2rem',
 						padding: '0.75rem 2rem',
 						fontSize: '0.9rem',
+						fontFamily: "'Georgia', serif",
 						fontWeight: 600,
 						cursor: 'pointer',
 					}}
@@ -430,7 +430,7 @@ const Compliment = forwardRef<ComplimentHandle>(function Compliment(_, ref) {
 				style={{
 					width: '3rem',
 					height: '2px',
-					background: 'var(--accent)',
+					background: 'var(--mint)',
 					margin: '1rem auto 1.75rem',
 					borderRadius: '1px',
 					opacity: 0.5,

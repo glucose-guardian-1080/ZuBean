@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import './App.css';
 import BeanIcon from './components/BeanIcon';
 import VoiceMessages from './components/VoiceMessages';
@@ -7,10 +7,11 @@ import Compliment from './components/Compliment';
 import type { ComplimentHandle } from './components/Compliment';
 import Memory from './components/Memory';
 import Countdown from './components/Countdown';
+import greetings from './data/greetings.json';
 
-type Page = 'home' | 'voice' | 'compliment' | 'memory' | 'countdown';
+type Page = 'splash' | 'home' | 'voice' | 'compliment' | 'memory' | 'countdown';
 
-const pageTitle: Record<Exclude<Page, 'home'>, string> = {
+const pageTitle: Record<Exclude<Page, 'home' | 'splash'>, string> = {
 	voice: 'Sound Bites',
 	compliment: 'Serotonin Menu',
 	memory: 'Origin Story',
@@ -18,14 +19,19 @@ const pageTitle: Record<Exclude<Page, 'home'>, string> = {
 };
 
 function App() {
-	const [page, setPage] = useState<Page>('home');
+	const [page, setPage] = useState<Page>('splash');
+	const [splashFading, setSplashFading] = useState(false);
+	const greeting = useMemo(
+		() => greetings[Math.floor(Math.random() * greetings.length)],
+		[],
+	);
 	const [animDirection, setAnimDirection] = useState<
 		'forward' | 'back' | null
 	>(null);
 	const voiceRef = useRef<VoiceMessagesHandle>(null);
 	const complimentRef = useRef<ComplimentHandle>(null);
 
-	function navigateTo(target: Exclude<Page, 'home'>) {
+	function navigateTo(target: Exclude<Page, 'home' | 'splash'>) {
 		if (animDirection) return;
 		setAnimDirection('forward');
 		setPage(target);
@@ -52,7 +58,13 @@ function App() {
 		setAnimDirection(null);
 	}
 
-	const subPage = page !== 'home' ? page : null;
+	function dismissSplash() {
+		if (splashFading) return;
+		setSplashFading(true);
+		setTimeout(() => setPage('home'), 400);
+	}
+
+	const subPage = page !== 'home' && page !== 'splash' ? page : null;
 	const showHome = page === 'home' || animDirection !== null;
 
 	const animClass =
@@ -64,25 +76,33 @@ function App() {
 
 	return (
 		<div className="page-wrapper">
+			{page === 'splash' && (
+				<div
+					className={`splash${splashFading ? ' splash-fade-out' : ''}`}
+					onClick={dismissSplash}
+				>
+					<div className="splash-icon">
+						<BeanIcon size={100} />
+					</div>
+					<h1 className="splash-title">
+						<span className="zu">Zu</span>
+						<span className="bean">Bean</span>
+					</h1>
+					<p className="splash-greeting">{greeting}</p>
+					<p className="splash-hint">tap anywhere</p>
+				</div>
+			)}
+
 			{showHome && (
 				<div className="app">
 					<header className="header">
-						<div
-							style={{
-								borderRadius: 20,
-								overflow: 'hidden',
-								display: 'inline-block',
-								boxShadow: '0 6px 24px rgba(0,0,0,0.4)',
-								marginBottom: '0.75rem',
-							}}
-						>
+						<div style={{ marginBottom: '0.75rem' }}>
 							<BeanIcon size={72} />
 						</div>
 						<h1>
 							<span className="zu">Zu</span>
 							<span className="bean">Bean</span>
 						</h1>
-						<p>little moments, big warmth</p>
 					</header>
 
 					<div className="grid">
@@ -91,36 +111,10 @@ function App() {
 							onClick={() => navigateTo('voice')}
 						>
 							<span className="card-icon">
-								<svg
-									width="32"
-									height="32"
-									viewBox="0 0 32 32"
-									fill="none"
-								>
-									<rect
-										x="10"
-										y="4"
-										width="12"
-										height="20"
-										rx="6"
-										fill="#3D7A77"
-										opacity="0.25"
-										stroke="#A8DCD9"
-										strokeWidth="1.5"
-									/>
-									<path
-										d="M8 18a8 8 0 0 0 16 0"
-										stroke="#A8DCD9"
-										strokeWidth="1.5"
-										strokeLinecap="round"
-										fill="none"
-									/>
-									<path
-										d="M16 26v3M12 29h8"
-										stroke="#A8DCD9"
-										strokeWidth="1.5"
-										strokeLinecap="round"
-									/>
+								<svg width="32" height="32" viewBox="0 0 36 36" fill="none">
+									<rect x="12" y="4" width="12" height="18" rx="6" stroke="#A8DCD9" strokeWidth="1.5" />
+									<path d="M9 17a9 9 0 0 0 18 0" stroke="#A8DCD9" strokeWidth="1.5" strokeLinecap="round" />
+									<path d="M18 26v4M14 30h8" stroke="#A8DCD9" strokeWidth="1.5" strokeLinecap="round" />
 								</svg>
 							</span>
 							<span className="card-label">{pageTitle.voice}</span>
@@ -130,25 +124,10 @@ function App() {
 							onClick={() => navigateTo('compliment')}
 						>
 							<span className="card-icon">
-								<svg
-									width="32"
-									height="32"
-									viewBox="0 0 32 32"
-									fill="none"
-								>
-									<circle
-										cx="16"
-										cy="16"
-										r="8"
-										fill="#3D7A77"
-										opacity="0.3"
-									/>
-									<path
-										d="M16 4v4M16 24v4M4 16h4M24 16h4M7.5 7.5l2.8 2.8M21.7 21.7l2.8 2.8M24.5 7.5l-2.8 2.8M10.3 21.7l-2.8 2.8"
-										stroke="#A8DCD9"
-										strokeWidth="1.8"
-										strokeLinecap="round"
-									/>
+								<svg width="32" height="32" viewBox="0 0 36 36" fill="none">
+									<path d="M8 4h20a2 2 0 0 1 2 2v24a2 2 0 0 1-2 2H8z" stroke="#A8DCD9" strokeWidth="1.5" strokeLinejoin="round" />
+									<path d="M8 4v28" stroke="#A8DCD9" strokeWidth="1.5" />
+									<path d="M14 12h10M14 18h10M14 24h6" stroke="#A8DCD9" strokeWidth="1.5" strokeLinecap="round" />
 								</svg>
 							</span>
 							<span className="card-label">{pageTitle.compliment}</span>
@@ -158,38 +137,10 @@ function App() {
 							onClick={() => navigateTo('memory')}
 						>
 							<span className="card-icon">
-								<svg
-									width="32"
-									height="32"
-									viewBox="0 0 32 32"
-									fill="none"
-								>
-									<rect
-										x="4"
-										y="6"
-										width="24"
-										height="20"
-										rx="3"
-										fill="#3D7A77"
-										opacity="0.25"
-										stroke="#A8DCD9"
-										strokeWidth="1.5"
-									/>
-									<circle
-										cx="12"
-										cy="14"
-										r="3"
-										fill="#A8DCD9"
-										opacity="0.6"
-									/>
-									<path
-										d="M4 22l7-5 4 3 5-4 8 6"
-										stroke="#A8DCD9"
-										strokeWidth="1.5"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										fill="none"
-									/>
+								<svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+									<rect x="4" y="6" width="24" height="20" rx="3" stroke="#A8DCD9" strokeWidth="1.5" />
+									<circle cx="12" cy="14" r="3" stroke="#A8DCD9" strokeWidth="1.5" />
+									<path d="M4 22l7-5 4 3 5-4 8 6" stroke="#A8DCD9" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
 								</svg>
 							</span>
 							<span className="card-label">{pageTitle.memory}</span>
@@ -199,38 +150,11 @@ function App() {
 							onClick={() => navigateTo('countdown')}
 						>
 							<span className="card-icon">
-								<svg
-									width="32"
-									height="32"
-									viewBox="0 0 32 32"
-									fill="none"
-								>
-									<path
-										d="M11 4h10M16 4v3"
-										stroke="#A8DCD9"
-										strokeWidth="1.8"
-										strokeLinecap="round"
-									/>
-									<path
-										d="M10 8h12l-2 8 2 8H10l2-8-2-8z"
-										fill="#3D7A77"
-										opacity="0.25"
-										stroke="#A8DCD9"
-										strokeWidth="1.5"
-										strokeLinejoin="round"
-									/>
-									<path
-										d="M13 16h6"
-										stroke="#A8DCD9"
-										strokeWidth="1.2"
-										strokeLinecap="round"
-										opacity="0.5"
-									/>
-									<path
-										d="M14 20l2 4 2-4"
-										fill="#A8DCD9"
-										opacity="0.4"
-									/>
+								<svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+									<rect x="4" y="8" width="24" height="20" rx="2.5" stroke="#A8DCD9" strokeWidth="1.5" />
+									<path d="M4 14h24" stroke="#A8DCD9" strokeWidth="1.5" />
+									<path d="M10 4v6M22 4v6" stroke="#A8DCD9" strokeWidth="1.5" strokeLinecap="round" />
+									<circle cx="16" cy="21" r="3" stroke="#A8DCD9" strokeWidth="1.5" />
 								</svg>
 							</span>
 							<span className="card-label">{pageTitle.countdown}</span>

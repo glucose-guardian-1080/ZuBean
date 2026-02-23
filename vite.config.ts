@@ -13,8 +13,8 @@ export default defineConfig({
         short_name: 'ZuBean',
         description: 'A little pocket of fun, just for you.',
         start_url: '.',
-        theme_color: '#3B2314',
-        background_color: '#3B2314',
+        theme_color: '#1E2E2E',
+        background_color: '#1E2E2E',
         display: 'standalone',
         orientation: 'portrait',
         icons: [
