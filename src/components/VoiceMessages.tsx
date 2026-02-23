@@ -1,5 +1,7 @@
-import { useState, useRef, useEffect } from 'react'
-import messages from '../data/voice-messages.json'
+import { useState, useRef, useEffect, useImperativeHandle, forwardRef } from 'react'
+import folders from '../data/voice-messages.json'
+
+type Message = { src: string; title: string; date: string }
 
 function formatTime(seconds: number) {
   const m = Math.floor(seconds / 60)
@@ -7,16 +9,22 @@ function formatTime(seconds: number) {
   return `${m}:${s.toString().padStart(2, '0')}`
 }
 
-export default function VoiceMessages() {
+const allMessages = folders.flatMap((f) => f.messages)
+
+export type VoiceMessagesHandle = {
+  goBack: () => boolean
+}
+
+const VoiceMessages = forwardRef<VoiceMessagesHandle>(function VoiceMessages(_, ref) {
+  const [openFolder, setOpenFolder] = useState<string | null>(null)
   const [playing, setPlaying] = useState<string | null>(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [durations, setDurations] = useState<Record<string, number>>({})
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const animRef = useRef<number>(0)
 
-  // Preload durations for all messages
   useEffect(() => {
-    messages.forEach((msg) => {
+    allMessages.forEach((msg) => {
       const audio = new Audio(msg.src)
       audio.onloadedmetadata = () => {
         setDurations((prev) => ({ ...prev, [msg.src]: audio.duration }))
@@ -41,14 +49,35 @@ export default function VoiceMessages() {
     }
   }, [])
 
+  function stopAudio() {
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current = null
+      cancelAnimationFrame(animRef.current)
+    }
+    setPlaying(null)
+    setCurrentTime(0)
+  }
+
+  // Expose goBack: returns true if it handled the back (went up a level), false if at top
+  useImperativeHandle(ref, () => ({
+    goBack() {
+      if (openFolder) {
+        stopAudio()
+        setOpenFolder(null)
+        return true
+      }
+      stopAudio()
+      return false
+    }
+  }))
+
   function toggle(src: string) {
-    // Pause current
     if (audioRef.current) {
       audioRef.current.pause()
       cancelAnimationFrame(animRef.current)
     }
 
-    // If tapping the same one, just stop
     if (playing === src) {
       setPlaying(null)
       setCurrentTime(0)
@@ -75,13 +104,13 @@ export default function VoiceMessages() {
     audioRef.current.currentTime = pct * audioRef.current.duration
   }
 
-  if (messages.length === 0) {
+  if (folders.length === 0) {
     return (
       <div style={{ textAlign: 'center', marginTop: '3rem' }}>
         <svg width="48" height="48" viewBox="0 0 32 32" fill="none">
-          <rect x="10" y="4" width="12" height="20" rx="6" fill="#C17D4F" opacity="0.25" stroke="#D4956B" strokeWidth="1.5"/>
-          <path d="M8 18a8 8 0 0 0 16 0" stroke="#D4956B" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-          <path d="M16 26v3M12 29h8" stroke="#D4956B" strokeWidth="1.5" strokeLinecap="round"/>
+          <rect x="10" y="4" width="12" height="20" rx="6" fill="#3D7A77" opacity="0.25" stroke="#A8DCD9" strokeWidth="1.5"/>
+          <path d="M8 18a8 8 0 0 0 16 0" stroke="#A8DCD9" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+          <path d="M16 26v3M12 29h8" stroke="#A8DCD9" strokeWidth="1.5" strokeLinecap="round"/>
         </svg>
         <p style={{ color: 'var(--text-muted)', marginTop: '1rem' }}>
           No voice messages yet!
@@ -90,9 +119,51 @@ export default function VoiceMessages() {
     )
   }
 
+  // Folder list view
+  if (!openFolder) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+        {folders.map((folder) => (
+          <div
+            key={folder.folder}
+            onClick={() => setOpenFolder(folder.folder)}
+            style={{
+              background: 'var(--bg-card)',
+              borderRadius: '1rem',
+              padding: '1.25rem',
+              border: '1px solid rgba(168, 220, 217, 0.1)',
+              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              cursor: 'pointer',
+            }}
+          >
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M3 7a2 2 0 0 1 2-2h6l2 3h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" fill="#3D7A77" opacity="0.3" stroke="#A8DCD9" strokeWidth="1.5"/>
+            </svg>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontWeight: 600, fontSize: '1rem' }}>{folder.folder}</p>
+              <p style={{ color: 'var(--muted)', fontSize: '0.75rem', marginTop: '0.15rem' }}>
+                {folder.messages.length} {folder.messages.length === 1 ? 'message' : 'messages'}
+              </p>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 4l4 4-4 4" stroke="var(--muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  // Messages inside a folder
+  const currentFolder = folders.find((f) => f.folder === openFolder)
+  if (!currentFolder) return null
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
-      {messages.map((msg) => {
+      {currentFolder.messages.map((msg: Message) => {
         const isPlaying = playing === msg.src
         const msgDuration = durations[msg.src] || 0
         const progress = isPlaying && msgDuration > 0 ? (currentTime / msgDuration) * 100 : 0
@@ -104,7 +175,7 @@ export default function VoiceMessages() {
               background: 'var(--bg-card)',
               borderRadius: '1rem',
               padding: '1.25rem',
-              border: '1px solid rgba(193, 125, 79, 0.12)',
+              border: '1px solid rgba(168, 220, 217, 0.1)',
               boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)',
             }}
           >
@@ -118,8 +189,8 @@ export default function VoiceMessages() {
                   height: 40,
                   borderRadius: '50%',
                   background: isPlaying
-                    ? 'linear-gradient(135deg, var(--caramel), var(--brown-light))'
-                    : 'rgba(193, 125, 79, 0.15)',
+                    ? 'linear-gradient(135deg, var(--amber), var(--golden))'
+                    : 'rgba(168, 220, 217, 0.12)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -133,7 +204,7 @@ export default function VoiceMessages() {
                   </svg>
                 ) : (
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                    <path d="M5 3l10 6-10 6V3z" fill="#D4956B"/>
+                    <path d="M5 3l10 6-10 6V3z" fill="#A8DCD9"/>
                   </svg>
                 )}
               </div>
@@ -148,7 +219,7 @@ export default function VoiceMessages() {
                 marginTop: '0.75rem',
                 height: 6,
                 borderRadius: 3,
-                background: 'rgba(193, 125, 79, 0.15)',
+                background: 'rgba(168, 220, 217, 0.12)',
                 cursor: isPlaying ? 'pointer' : 'default',
                 overflow: 'hidden',
               }}
@@ -157,7 +228,7 @@ export default function VoiceMessages() {
                 style={{
                   height: '100%',
                   width: `${progress}%`,
-                  background: 'linear-gradient(90deg, var(--caramel), var(--brown-light))',
+                  background: 'linear-gradient(90deg, var(--amber), var(--golden))',
                   borderRadius: 3,
                   transition: 'width 0.1s linear',
                 }}
@@ -176,4 +247,6 @@ export default function VoiceMessages() {
       })}
     </div>
   )
-}
+})
+
+export default VoiceMessages

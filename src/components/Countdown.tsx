@@ -21,36 +21,36 @@ export default function Countdown() {
             background: 'var(--bg-card)',
             borderRadius: '1rem',
             padding: '1.25rem',
-            border: '1px solid rgba(193, 125, 79, 0.12)',
+            border: '1px solid rgba(168, 220, 217, 0.1)',
             boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)',
             display: 'flex',
             alignItems: 'center',
             gap: '1.25rem',
           }}
         >
-          <div style={{ textAlign: 'center', minWidth: '4rem' }}>
+          <div style={{ textAlign: 'center', minWidth: '4.5rem', flexShrink: 0 }}>
             <p
               style={{
                 fontSize: '2rem',
                 fontWeight: 700,
-                background: 'linear-gradient(135deg, var(--caramel), var(--brown-light))',
+                background: 'linear-gradient(135deg, var(--amber), var(--golden))',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                lineHeight: 1,
+                lineHeight: 1.2,
               }}
             >
               {item.days}
             </p>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.7rem' }}>days</p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.7rem', marginTop: '0.35rem' }}>days</p>
           </div>
           <div>
             <p style={{ fontWeight: 600, fontSize: '1rem' }}>{item.title}</p>
             {item.description && (
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.25rem' }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.65rem' }}>
                 {item.description}
               </p>
             )}
-            <p style={{ color: 'var(--muted)', fontSize: '0.75rem', marginTop: '0.25rem' }}>{item.date}</p>
+            <p style={{ color: 'var(--muted)', fontSize: '0.75rem', marginTop: '0.65rem' }}>{item.date}</p>
           </div>
         </div>
       ))}

@@ -1,3 +1,12 @@
+/* Page transition wrapper */
+.page-wrapper {
+  position: relative;
+  overflow-x: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .app {
   flex: 1;
   display: flex;
@@ -21,11 +30,11 @@
 }
 
 .header h1 .zu {
-  color: var(--cream-light);
+  color: var(--text);
 }
 
 .header h1 .bean {
-  color: var(--brown-light);
+  color: var(--amber);
 }
 
 .header p {
@@ -53,7 +62,7 @@
   gap: 0.75rem;
   text-decoration: none;
   color: var(--text);
-  border: 1px solid rgba(193, 125, 79, 0.12);
+  border: 1px solid rgba(168, 220, 217, 0.1);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   cursor: pointer;
@@ -75,6 +84,110 @@
   text-align: center;
 }
 
+/* Sticky nav bar for sub-pages */
+.sub-page {
+  padding-top: 0;
+}
+
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid rgba(168, 220, 217, 0.12);
+}
+
+.nav-back {
+  background: none;
+  border: none;
+  color: var(--mint);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 2.5rem;
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--mint);
+}
+
+.nav-spacer {
+  width: 2.5rem;
+  flex-shrink: 0;
+}
+
+.page-content {
+  padding-top: 1rem;
+}
+
 input::placeholder {
   color: var(--muted);
+}
+
+/* Slide animations */
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideOut {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+.slide-in,
+.slide-out {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  min-height: 100%;
+  z-index: 20;
+  background: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-deep-alt) 100%);
+  will-change: transform;
+}
+
+.slide-in {
+  animation: slideIn 300ms ease both;
+}
+
+.slide-out {
+  animation: slideOut 300ms ease both;
+}
+
+/* Card shuffle animation — deck deal style */
+@keyframes cardShuffle {
+  0% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+  30% {
+    transform: translateX(85%) rotate(10deg);
+    opacity: 0.5;
+  }
+  45% {
+    transform: translateX(100%) rotate(12deg);
+    opacity: 0;
+  }
+  55% {
+    transform: translateX(-100%) rotate(-12deg);
+    opacity: 0;
+  }
+  70% {
+    transform: translateX(-85%) rotate(-10deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
 }

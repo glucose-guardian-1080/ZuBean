@@ -1,7 +1,102 @@
-[
-  "You have the most beautiful smile.",
-  "Your kindness is contagious.",
-  "You light up every room you walk into.",
-  "You are braver than you believe.",
-  "The world is better because you are in it."
-]
+{
+	"prompt": "Pick your flavor of serotonin:",
+	"sections": [
+		{
+			"title": "The House Blend",
+			"description": "The core of who you are — your presence, your effort, and the way loving you feels natural and steady.",
+			"entries": [
+				"You feel like someone who took the very best parts of the people I love most and somehow became your own incredible person, and even those comparisons fall unbelievably short of capturing everything I love about you.",
+				"From the moment we really started talking, I felt this — this sense that you were different in a way I couldn’t quite explain yet.",
+				"When we're cuddled up on the couch, there's this effortless sense of belonging, happiness, and comfort that didn’t take any effort to get to.",
+				"Being with you doesn't take effort — it just feels natural.",
+				"Even though I'm anxious and insecure, there are so many moments with you where I get to just sink into you and feel steady.",
+				"When you get soft and sink into my arms, there's this overwhelming feeling that you belong there.",
+				"You are never disingenuous — you are always 100% yourself, and I absolutely love that about you.",
+				"I love that you always try with me and put 100% of your effort into making me feel loved and cared for.",
+				"Sharing a kitchen with you feels so damn natural — I never get annoyed, I'm just happy you're there with me.",
+				"I think I'm always just genuinely happy to be spending time with you.",
+				"You make me a better person all the time, and I appreciate that more than you know."
+			]
+		},
+		{
+			"title": "Brain Buzz",
+			"description": "All the ways your mind absolutely wrecks me — your intelligence, creativity, depth, and the way you teach and explain things.",
+			"entries": [
+				"I genuinely think you are one of the smartest people I've ever met, and that still blows my mind.",
+				"Your thirst for knowledge feels like something that can never be fully satiated — you're always learning, always growing, always working on yourself.",
+				"You think things through before you speak, and you have refreshing thoughts I've honestly never heard from anyone else.",
+				"The way your brain processes things fascinates me, especially how quickly you can see through my bullshit.",
+				"You ask thoughtful questions that make conversations feel deeper, and your rants always make sense to me — even when you think they don't.",
+				"Watching you solve a minute cryptic ridiculously fast blows my mind every single time.",
+				"I love how good you are at design and work stuff — it's so attractive when you can clearly explain why something needs to be a certain way and why you want it done like that.",
+				"I love that you're patient with me and teach me how to do things, or how to see things differently.",
+				"I loved our conversation about the logos — that kind of thing makes me so happy.",
+				"I love how good you are at art, and that I can talk to you about creative things and get thoughtful feedback.",
+				"You got me into woodburning and made me feel excited about creating art again — something I hadn’t touched in years."
+			]
+		},
+		{
+			"title": "Stubborn Spice",
+			"description": "Your drive, your standards, your vision — the way you know exactly what you want and refuse to give up.",
+			"entries": [
+				"I love how stubborn you are — when you set your mind to something, you just do it.",
+				"You don’t stop trying, even when you have setbacks or you’re not feeling well, and I think that’s incredible.",
+				"Your determination is genuinely inspiring to me.",
+				"You're observant in ways most people aren't — you notice the little things and you're thoughtful in ways that feel rare.",
+				"I love how picky you are, because it means you know exactly what you want.",
+				"When you were decorating your room, you had a full vision in your head, knew EXACTLY what you were looking for, and then brought it to life."
+			]
+		},
+		{
+			"title": "Soft Serve",
+			"description": "The tiny, specific, heart-melting moments that live permanently in my brain.",
+			"entries": [
+				"I fucking loved watching you bop along to that electro swing song — that moment is permanently embedded in my brain.",
+				"Your random bursts of energy make me so happy, especially the specific little things that make you light up.",
+				"Your sass is elite and your comebacks are lightning fast — I absolutely love that about you.",
+				"The smile you give me when I do something you think is cute melts me every time.",
+				"Your voice is so soft and comforting — it brings me more comfort and joy than I can explain.",
+				"Being in your arms feels like coming home to a place I didn’t even know could exist.",
+				"I love that we got Polaroid cameras at the same time, and I love all the Polaroids we took together.",
+				"I love when we cuddle up in bed even though we're both dying from the heat and still just want to be close to each other.",
+				"I love when you wake me up after a bad nightmare so I can hold you and tell you everything is okay, or when you curl up into my back."
+			]
+		},
+		{
+			"title": "Heart Rate Spike",
+			"description": "The part where I admit I think you're ridiculously attractive — especially in the ways that completely undo me.",
+			"entries": [
+				"I genuinely think you are unbelievably attractive in every single way.",
+				"You look absolutely amazing — just as a general statement.",
+				"You're hot.",
+				"I really like your butt. It's a very good butt.",
+				"Your eyes are fucking beautiful — sometimes they’re sky blue and piercing and impossibly deep, sometimes the softest green, and sometimes grey that completely blows my mind.",
+				"I love that they’re always changing, that I can sink into them, and that they make me feel something different every day.",
+				"I really love holding your face and getting to connect with you in that way.",
+				"When you're climbing and you hit a move you didn't think you could get, that confidence is insanely attractive.",
+				"When you laugh at me for doing something stupid, it weirdly makes me so happy.",
+				"When you get soft and stubborn and decide what's best for me like I don't get a choice, I love that dynamic more than I should."
+			]
+		},
+		{
+			"title": "Cat Approved",
+			"description": "Proof of character: the way you love the creatures I love.",
+			"entries": [
+				"I love how much you love cats — yours and mine.",
+				"I love that you love Baast and always take the time to make her feel loved, heard, and cared for.",
+				"I love that you love the fact that you're good with cats."
+			]
+		},
+		{
+			"title": "Cosmic Combo",
+			"description": "The us of it all — the way we fit, click, and feel bigger than coincidence.",
+			"entries": [
+				"The way we complement each other intellectually feels rare, and our conversations click in a million different ways.",
+				"Our experiences are so different, yet when we talk, everything just makes sense.",
+				"You fill a void in my life I didn’t even know was empty.",
+				"I've met people who felt like the idea of soulmates before — but never like this.",
+				"I wish you could see yourself through my eyes for even a second, because I truly believe you are the best person I’ve ever met."
+			]
+		}
+	]
+}

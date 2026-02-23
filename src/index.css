@@ -7,23 +7,25 @@
 }
 
 :root {
-  --brown-darkest: #3B2314;
-  --brown-dark: #5C3A1E;
-  --brown: #8B5E3C;
-  --brown-light: #C17D4F;
-  --caramel: #D4956B;
-  --cream: #E8D5C4;
-  --cream-light: #FFF8F0;
-  --bg-deep: #1A0F0A;
-  --bg-deep-alt: #2C1810;
-  --muted: #A07050;
+  --teal-deep: #1E2E2E;
+  --teal: #2A5C5A;
+  --sage: #3D7A77;
+  --mint: #A8DCD9;
+  --stone: #9AABA8;
+  --amber: #F2C572;
+  --golden: #E8B44C;
+  --blush: #F0B4BA;
+  --rose: #D48990;
+  --bg-deep: #1A2C2C;
+  --bg-deep-alt: #243434;
+  --muted: #9AABA8;
 
-  --bg: var(--brown-darkest);
-  --bg-card: var(--brown-dark);
-  --text: var(--cream-light);
-  --text-muted: var(--cream);
-  --accent: var(--caramel);
-  --accent-alt: var(--brown-light);
+  --bg: var(--teal-deep);
+  --bg-card: var(--teal);
+  --text: #E0F5F3;
+  --text-muted: var(--mint);
+  --accent: var(--amber);
+  --accent-alt: var(--golden);
 
   font-family: 'Georgia', serif;
   color: var(--text);

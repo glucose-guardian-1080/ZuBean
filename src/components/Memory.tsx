@@ -18,9 +18,9 @@ export default function Memory() {
     return (
       <div style={{ textAlign: 'center', marginTop: '3rem' }}>
         <svg width="48" height="48" viewBox="0 0 32 32" fill="none">
-          <rect x="4" y="6" width="24" height="20" rx="3" fill="#C17D4F" opacity="0.25" stroke="#D4956B" strokeWidth="1.5"/>
-          <circle cx="12" cy="14" r="3" fill="#D4956B" opacity="0.6"/>
-          <path d="M4 22l7-5 4 3 5-4 8 6" stroke="#D4956B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+          <rect x="4" y="6" width="24" height="20" rx="3" fill="#3D7A77" opacity="0.25" stroke="#A8DCD9" strokeWidth="1.5"/>
+          <circle cx="12" cy="14" r="3" fill="#A8DCD9" opacity="0.6"/>
+          <path d="M4 22l7-5 4 3 5-4 8 6" stroke="#A8DCD9" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
         </svg>
         <p style={{ color: 'var(--text-muted)', marginTop: '1rem' }}>
           No memories yet!
@@ -51,7 +51,7 @@ export default function Memory() {
             style={{
               width: '100%',
               background: 'var(--bg-card)',
-              border: '1px solid rgba(193, 125, 79, 0.2)',
+              border: '1px solid rgba(168, 220, 217, 0.15)',
               borderRadius: '0.75rem',
               padding: '0.75rem 1rem 0.75rem 2.5rem',
               color: 'var(--text)',
@@ -66,7 +66,7 @@ export default function Memory() {
           title={reversed ? 'Oldest first' : 'Newest first'}
           style={{
             background: 'var(--bg-card)',
-            border: '1px solid rgba(193, 125, 79, 0.2)',
+            border: '1px solid rgba(168, 220, 217, 0.15)',
             borderRadius: '0.75rem',
             padding: '0 0.85rem',
             cursor: 'pointer',
@@ -92,7 +92,7 @@ export default function Memory() {
             background: 'var(--bg-card)',
             borderRadius: '1rem',
             overflow: 'hidden',
-            border: '1px solid rgba(193, 125, 79, 0.12)',
+            border: '1px solid rgba(168, 220, 217, 0.1)',
             boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)',
           }}
         >
