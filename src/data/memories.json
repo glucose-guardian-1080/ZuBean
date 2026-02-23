@@ -1,11 +1,5 @@
 [
 	{
-		"src": "https://pub-cd523057f4534ebfbff77f65472e03b2.r2.dev/memories/jack.jpg",
-		"title": "Eddie :)",
-		"description": "",
-		"date": "2025-01-17"
-	},
-	{
 		"src": "https://pub-cd523057f4534ebfbff77f65472e03b2.r2.dev/memories/stupid.jpg",
 		"title": "Remember When You Called Me Stupid?",
 		"description": "Historical documentation of slander. Still cute though.",
@@ -24,6 +18,12 @@
 		"date": "2025-01-10"
 	},
 	{
+		"src": "https://pub-cd523057f4534ebfbff77f65472e03b2.r2.dev/memories/jack.jpg",
+		"title": "Eddie :)",
+		"description": "",
+		"date": "2025-01-17"
+	},
+	{
 		"src": "https://pub-cd523057f4534ebfbff77f65472e03b2.r2.dev/memories/climbing2.jpg",
 		"title": "Climbing Bathroom Selfie",
 		"description": "",
@@ -32,7 +32,7 @@
 	{
 		"src": "https://pub-cd523057f4534ebfbff77f65472e03b2.r2.dev/memories/pasta.jpg",
 		"title": "Pasta",
-		"description": "One of my favorite memories. Watching you learn and loving every second of it. It was also the first time I realized I don’t have to hate having someone else in the kitchen with me — it just felt normal with you. And it still does.",
+		"description": "One of my favorite memories. Watching you learn and loving every second of it. It was also the first time I realized I don't have to hate having someone else in the kitchen with me — it just felt normal with you. And it still does.",
 		"date": "2025-03-22"
 	},
 	{
@@ -56,7 +56,7 @@
 	{
 		"src": "https://pub-cd523057f4534ebfbff77f65472e03b2.r2.dev/memories/rock.jpg",
 		"title": "Our Rock",
-		"description": "Sitting on our rock, looking out at everything and nothing. I can’t wait to take Polaroids of us there.",
+		"description": "Sitting on our rock, looking out at everything and nothing. I can't wait to take Polaroids of us there.",
 		"date": "2025-04-30"
 	},
 	{
@@ -98,13 +98,13 @@
 	{
 		"src": "https://pub-cd523057f4534ebfbff77f65472e03b2.r2.dev/memories/horseback.jpg",
 		"title": "Horseback Riding",
-		"description": "Being out and about, doing something I absolutely love with someone I love more than anything. Doesn’t really get better than that.",
+		"description": "Being out and about, doing something I absolutely love with someone I love more than anything. Doesn't really get better than that.",
 		"date": "2025-05-24"
 	},
 	{
 		"src": "https://pub-cd523057f4534ebfbff77f65472e03b2.r2.dev/memories/horse.jpg",
 		"title": "Horse",
-		"description": "It’s you. You’re the horse. Look at those ears.",
+		"description": "It's you. You're the horse. Look at those ears.",
 		"date": "2025-05-24"
 	},
 	{

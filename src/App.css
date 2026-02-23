@@ -72,7 +72,7 @@
 /* Page transition wrapper */
 .page-wrapper {
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -89,13 +89,8 @@
 }
 
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
   text-align: center;
-  padding: 1.5rem 0;
-  margin: -1.5rem 0 1rem;
-  background: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-deep-alt) 100%);
+  margin-bottom: 2rem;
 }
 
 .header h1 {
@@ -231,6 +226,35 @@ input::placeholder {
 
 .slide-out {
   animation: slideOut 300ms ease both;
+}
+
+/* Sub-level transitions */
+@keyframes subEnter {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes subExit {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(40px); }
+}
+
+@keyframes subEnterReverse {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.sub-enter {
+  animation: subEnter 250ms ease both;
+}
+
+.sub-exit {
+  animation: subExit 200ms ease both;
+  pointer-events: none;
+}
+
+.sub-enter-reverse {
+  animation: subEnterReverse 250ms ease both;
 }
 
 /* Card shuffle animation */

@@ -22,6 +22,8 @@ const VoiceMessages = forwardRef<VoiceMessagesHandle>(function VoiceMessages(_, 
   const [durations, setDurations] = useState<Record<string, number>>({})
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const animRef = useRef<number>(0)
+  const [subAnim, setSubAnim] = useState<'enter' | 'exit-back' | null>(null)
+  const [cameBack, setCameBack] = useState(false)
 
   useEffect(() => {
     allMessages.forEach((msg) => {
@@ -59,12 +61,19 @@ const VoiceMessages = forwardRef<VoiceMessagesHandle>(function VoiceMessages(_, 
     setCurrentTime(0)
   }
 
-  // Expose goBack: returns true if it handled the back (went up a level), false if at top
+  function handleSubAnimEnd() {
+    if (subAnim === 'exit-back') {
+      stopAudio()
+      setOpenFolder(null)
+      setCameBack(true)
+    }
+    setSubAnim(null)
+  }
+
   useImperativeHandle(ref, () => ({
     goBack() {
       if (openFolder) {
-        stopAudio()
-        setOpenFolder(null)
+        setSubAnim('exit-back')
         return true
       }
       stopAudio()
@@ -122,11 +131,15 @@ const VoiceMessages = forwardRef<VoiceMessagesHandle>(function VoiceMessages(_, 
   // Folder list view
   if (!openFolder) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+      <div
+        className={cameBack ? 'sub-enter-reverse' : ''}
+        onAnimationEnd={() => setCameBack(false)}
+        style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}
+      >
         {folders.map((folder) => (
           <div
             key={folder.folder}
-            onClick={() => setOpenFolder(folder.folder)}
+            onClick={() => { setOpenFolder(folder.folder); setSubAnim('enter') }}
             style={{
               background: 'var(--bg-card)',
               borderRadius: '1rem',
@@ -162,7 +175,11 @@ const VoiceMessages = forwardRef<VoiceMessagesHandle>(function VoiceMessages(_, 
   if (!currentFolder) return null
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+    <div
+      className={subAnim === 'enter' ? 'sub-enter' : subAnim === 'exit-back' ? 'sub-exit' : ''}
+      onAnimationEnd={handleSubAnimEnd}
+      style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}
+    >
       {currentFolder.messages.map((msg: Message) => {
         const isPlaying = playing === msg.src
         const msgDuration = durations[msg.src] || 0

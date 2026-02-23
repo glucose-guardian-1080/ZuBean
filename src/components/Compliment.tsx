@@ -252,13 +252,13 @@ const Compliment = forwardRef<ComplimentHandle>(function Compliment(_, ref) {
 	const [entryIndex, setEntryIndex] = useState(0);
 	const [flipped, setFlipped] = useState(false);
 	const [shuffling, setShuffling] = useState(false);
+	const [subAnim, setSubAnim] = useState<'enter' | 'exit-back' | null>(null);
+	const [cameBack, setCameBack] = useState(false);
 
 	useImperativeHandle(ref, () => ({
 		goBack() {
 			if (sectionIndex !== null) {
-				setSectionIndex(null);
-				setFlipped(false);
-				setShuffling(false);
+				setSubAnim('exit-back');
 				return true;
 			}
 			return false;
@@ -270,6 +270,17 @@ const Compliment = forwardRef<ComplimentHandle>(function Compliment(_, ref) {
 		setEntryIndex(randomIndex(data.sections[i].entries.length));
 		setFlipped(false);
 		setShuffling(false);
+		setSubAnim('enter');
+	}
+
+	function handleSubAnimEnd() {
+		if (subAnim === 'exit-back') {
+			setSectionIndex(null);
+			setFlipped(false);
+			setShuffling(false);
+			setCameBack(true);
+		}
+		setSubAnim(null);
 	}
 
 	function anotherOne() {
@@ -285,6 +296,8 @@ const Compliment = forwardRef<ComplimentHandle>(function Compliment(_, ref) {
 		const section = data.sections[sectionIndex];
 		return (
 			<div
+				className={subAnim === 'enter' ? 'sub-enter' : subAnim === 'exit-back' ? 'sub-exit' : ''}
+				onAnimationEnd={handleSubAnimEnd}
 				style={{
 					textAlign: 'center',
 					marginTop: '2rem',
@@ -415,7 +428,10 @@ const Compliment = forwardRef<ComplimentHandle>(function Compliment(_, ref) {
 	}
 
 	return (
-		<div>
+		<div
+			className={cameBack ? 'sub-enter-reverse' : ''}
+			onAnimationEnd={() => setCameBack(false)}
+		>
 			<p
 				style={{
 					textAlign: 'center',

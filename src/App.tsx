@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo, useEffect, useCallback } from 'react';
 import './App.css';
 import BeanIcon from './components/BeanIcon';
 import VoiceMessages from './components/VoiceMessages';
@@ -33,22 +33,43 @@ function App() {
 
 	function navigateTo(target: Exclude<Page, 'home' | 'splash'>) {
 		if (animDirection) return;
+		history.pushState({ page: target }, '');
 		setAnimDirection('forward');
 		setPage(target);
 	}
 
-	function handleBack() {
-		if (animDirection) return;
+	const handleBack = useCallback(() => {
 		if (page === 'voice' && voiceRef.current) {
 			const handled = voiceRef.current.goBack();
-			if (handled) return;
+			if (handled) {
+				history.pushState({ page }, '');
+				return;
+			}
 		}
 		if (page === 'compliment' && complimentRef.current) {
 			const handled = complimentRef.current.goBack();
-			if (handled) return;
+			if (handled) {
+				history.pushState({ page }, '');
+				return;
+			}
 		}
 		setAnimDirection('back');
+	}, [page]);
+
+	function handleBackButton() {
+		if (animDirection) return;
+		history.back();
 	}
+
+	useEffect(() => {
+		function onPopState() {
+			if (page !== 'home' && page !== 'splash') {
+				handleBack();
+			}
+		}
+		window.addEventListener('popstate', onPopState);
+		return () => window.removeEventListener('popstate', onPopState);
+	}, [page, handleBack]);
 
 	function handleAnimationEnd(e: React.AnimationEvent) {
 		if (e.target !== e.currentTarget) return;
@@ -61,6 +82,7 @@ function App() {
 	function dismissSplash() {
 		if (splashFading) return;
 		setSplashFading(true);
+		history.replaceState({ page: 'home' }, '');
 		setTimeout(() => setPage('home'), 400);
 	}
 
@@ -171,7 +193,7 @@ function App() {
 					<div className="nav-bar">
 						<button
 							className="nav-back"
-							onClick={handleBack}
+							onClick={handleBackButton}
 							aria-label="Go back"
 						>
 							&#x276E;
