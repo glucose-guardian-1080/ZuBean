@@ -89,8 +89,13 @@
 }
 
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   text-align: center;
-  margin-bottom: 2rem;
+  padding: 1.5rem 0;
+  margin: -1.5rem 0 1rem;
+  background: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-deep-alt) 100%);
 }
 
 .header h1 {
