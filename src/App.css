@@ -162,6 +162,7 @@
   background: var(--bg-card);
   padding: 0.75rem 0.5rem;
   border-bottom: 1px solid rgba(168, 220, 217, 0.12);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
 .nav-back {
